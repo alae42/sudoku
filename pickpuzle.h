@@ -450,18 +450,27 @@ int pickPuzzle(int sudoku[162]){
     if(save==-1){return 0;}
 
     if (save==1){        
-        pF= fopen("zave.txt","r");len=1;
+        pF= fopen("zave.txt","r");
     }
 
     if(save==0 || pF==NULL){
         dificulty=whatdif();
         if(dificulty==-1){return 0;}
-        if (dificulty==0) {pF= fopen("sudoku_facile.txt","r");len=3;
-        }else if (dificulty==1) {pF= fopen("sudoku_normale.txt","r");len=4;
-        }else if (dificulty==2) {pF= fopen("sudoku_difficile.txt","r");len=1;
-        }else if (dificulty==3) {pF= fopen("sudoku_extreme.txt","r");len=1;
+        if (dificulty==0) {pF= fopen("sudoku_facile.txt","r");
+        }else if (dificulty==1) {pF= fopen("sudoku_normale.txt","r");
+        }else if (dificulty==2) {pF= fopen("sudoku_difficile.txt","r");
+        }else if (dificulty==3) {pF= fopen("sudoku_extreme.txt","r");
         }
     }
+
+    for (int i = 0;; i++){
+        if (fgets(strdoku, 164, pF) == NULL) {
+            len=i;
+            break;
+        }
+    }
+
+    rewind(pF);
 
     int r=rand()%len;
     for (int i = 0; i <= r; i++){fgets(strdoku, 164, pF);}
@@ -471,4 +480,5 @@ int pickPuzzle(int sudoku[162]){
 
     return 1;
 }
+
 
